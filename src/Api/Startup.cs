@@ -9,8 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Api.Db;
 using Api.Filters;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api
 {
@@ -26,11 +28,22 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
 
             services.AddAuthentication("BasicAuthentication")
                 .AddScheme<AuthenticationSchemeOptions, AutenticacaoBasicaHandler>("BasicAuthentication", null);
+
+            services.AddDbContext<ApiDotNetDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            // Unica instancia durante a execução da aplicação
+            // services.AddSingleton<>();
+
+            // Pesquisar depois
+            // services.AddTransient<>(); 
+
+            // Criada uma nova instancia para cada requisição, e ao final da requisição a instancia é eliminada da memória
+            // services.AddScoped<>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
