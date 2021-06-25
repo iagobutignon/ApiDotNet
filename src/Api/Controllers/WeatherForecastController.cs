@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
@@ -34,6 +35,13 @@ namespace Api.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Post()
+        {
+            return Ok(new {mensagem = "Checagem de autenticação OK!"});
         }
     }
 }
