@@ -1,16 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Api.Db;
+using Api.Db.Repositories;
 using Api.Filters;
+using Api.Interfaces.Repositories;
+using Api.Interfaces.Services;
+using Api.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 
@@ -35,6 +33,20 @@ namespace Api
 
             services.AddDbContext<ApiDotNetDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddAutoMapper(typeof(Startup));
+
+            #region Repositories
+
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            #endregion
+
+            #region Services
+
+            services.AddScoped<IUserService, UserService>();
+
+            #endregion
 
             // Unica instancia durante a execução da aplicação
             // services.AddSingleton<>();

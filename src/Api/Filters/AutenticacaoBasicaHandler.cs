@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Api.Interfaces.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -13,21 +14,17 @@ namespace Api.Filters
 {
     public class AutenticacaoBasicaHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
-        #region Property  
-        //readonly IUserService _userService;
-        #endregion
+        readonly IUserService _userService;
 
-        #region Constructor  
-        public AutenticacaoBasicaHandler(/*IUserService userService,*/
+        public AutenticacaoBasicaHandler(IUserService userService,
             IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
             ISystemClock clock)
             : base(options, logger, encoder, clock)
         {
-            //_userService = userService;
+            _userService = userService;
         }
-        #endregion
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
@@ -39,10 +36,7 @@ namespace Api.Filters
                 username = credentials.FirstOrDefault();
                 var password = credentials.LastOrDefault();
 
-                //if (!_userService.ValidateCredentials(username, password))
-                //    throw new ArgumentException("Invalid credentials");
-
-                if (username != "iago" || password != "123456")
+                if (await _userService.PasswordSignInAsync(username, password) == null)
                 {
                     throw new ArgumentException("Invalid credentials");
                 }
