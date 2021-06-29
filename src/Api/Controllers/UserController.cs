@@ -25,6 +25,23 @@ namespace Api.Controllers
         [AllowAnonymous]
         [SwaggerResponse(200, Type = typeof(UserModel))]
         [SwaggerResponse(400, Type = typeof(string))]
+        public async Task<IActionResult> Signin(UserRequest request)
+        {
+            try
+            {
+                var result = await _userService.PasswordSignInAsync(request.UserName, request.Password);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost("register")]
+        [AllowAnonymous]
+        [SwaggerResponse(200, Type = typeof(UserModel))]
+        [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Post(UserRequest request)
         {
             try
