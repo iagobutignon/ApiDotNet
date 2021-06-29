@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
@@ -22,5 +23,7 @@ namespace Api.Db.Entities
         public bool Active { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime? UpdatedAt { get; set; }
+
+        public virtual ICollection<AddressEntity> Adresses { get; set; } = new List<AddressEntity>();
     }
 }

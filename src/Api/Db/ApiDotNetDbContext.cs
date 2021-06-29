@@ -10,5 +10,6 @@ namespace Api.Db
 
         public virtual DbSet<UserEntity> Users { get; set; }
         public virtual DbSet<CustomerEntity> Customers { get; set; }
+        public virtual DbSet<AddressEntity> Adresses { get; set; }
     }
 }

@@ -12,11 +12,11 @@ using Microsoft.Extensions.Options;
 
 namespace Api.Filters
 {
-    public class AutenticacaoBasicaHandler : AuthenticationHandler<AuthenticationSchemeOptions>
+    public class BasicAuthHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
         readonly IUserService _userService;
 
-        public AutenticacaoBasicaHandler(IUserService userService,
+        public BasicAuthHandler(IUserService userService,
             IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,

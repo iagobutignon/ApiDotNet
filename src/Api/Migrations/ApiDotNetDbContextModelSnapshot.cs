@@ -19,6 +19,52 @@ namespace Api.Migrations
                 .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Api.Db.Entities.AddressEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cep")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Complement")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("CustomerEntityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("District")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerEntityId");
+
+                    b.ToTable("Adresses");
+                });
+
             modelBuilder.Entity("Api.Db.Entities.CustomerEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -86,6 +132,18 @@ namespace Api.Migrations
                         .IsUnique();
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Api.Db.Entities.AddressEntity", b =>
+                {
+                    b.HasOne("Api.Db.Entities.CustomerEntity", null)
+                        .WithMany("Adresses")
+                        .HasForeignKey("CustomerEntityId");
+                });
+
+            modelBuilder.Entity("Api.Db.Entities.CustomerEntity", b =>
+                {
+                    b.Navigation("Adresses");
                 });
 #pragma warning restore 612, 618
         }

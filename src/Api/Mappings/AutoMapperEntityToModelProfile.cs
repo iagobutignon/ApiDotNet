@@ -10,6 +10,7 @@ namespace Api.Mappings
         {
             CreateMap<UserEntity, UserModel>();
             CreateMap<CustomerEntity, CustomerModel>();
+            CreateMap<AddressEntity, AddressModel>();
         }
     }
 }

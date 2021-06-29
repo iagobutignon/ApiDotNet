@@ -51,12 +51,12 @@ namespace Api.Db.Repositories
 
         public async Task<IEnumerable<CustomerEntity>> GetAsync(Expression<Func<CustomerEntity, bool>> predicate)
         {
-            return await _apiDotNetDbContext.Customers.Where(predicate).ToListAsync();
+            return await _apiDotNetDbContext.Customers.Include(nameof(CustomerEntity.Adresses)).Where(predicate).ToListAsync();
         }
 
         public async Task<CustomerEntity> GetByIdAsync(Guid id)
         {
-            return await _apiDotNetDbContext.Customers.FindAsync(id);
+            return await _apiDotNetDbContext.Customers.Include(nameof(CustomerEntity.Adresses)).FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

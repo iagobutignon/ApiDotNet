@@ -10,21 +10,21 @@ namespace Api.Controllers
     [ApiController]
     [Route("[controller]")]
     [Authorize]
-    public class CustomerController : ControllerBase
+    public class AddressController : ControllerBase
     {
-        private readonly ICustomerService _customerService;
+        private readonly IAddressService _addressService;
 
-        public CustomerController(ICustomerService customerService)
+        public AddressController(IAddressService addressService)
         {
-            _customerService = customerService;
+            _addressService = addressService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(CustomerRequest request)
+        public async Task<IActionResult> Post(AddressRequest request)
         {
             try
             {
-                var result = await _customerService.InsertAsync(request);
+                var result = await _addressService.InsertAsync(request);
                 return Ok(result);
             }
             catch (Exception e)
@@ -34,11 +34,11 @@ namespace Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, CustomerRequest request)
+        public async Task<IActionResult> Put(Guid id, AddressRequest request)
         {
             try
             {
-                var result = await _customerService.UpdateAsync(id, request);
+                var result = await _addressService.UpdateAsync(id, request);
                 return Ok(result);
             }
             catch (Exception e)
@@ -52,21 +52,7 @@ namespace Api.Controllers
         {
             try
             {
-                var result = await _customerService.DeleteAsync(id);
-                return Ok(result);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            try
-            {
-                var result = await _customerService.GetAsync(x => true);
+                var result = await _addressService.DeleteAsync(id);
                 return Ok(result);
             }
             catch (Exception e)
@@ -80,7 +66,7 @@ namespace Api.Controllers
         {
             try
             {
-                var result = await _customerService.GetByIdAsync(id);
+                var result = await _addressService.GetByIdAsync(id);
                 return Ok(result);
             }
             catch (Exception e)
