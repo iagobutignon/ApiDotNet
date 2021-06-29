@@ -4,8 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Api.Db.Entities
 {
+    [Table("Addresses")]
     public class AddressEntity
     {
+        [Key]
         public Guid Id { get; set; }
         [ForeignKey(nameof(CustomerEntity.Id))]
         public Guid CustomerId { get; set; }
@@ -23,5 +25,6 @@ namespace Api.Db.Entities
         [Required]
         public string State { get; set; }
 
+        public virtual CustomerEntity Customer { get; set; }
     }
 }

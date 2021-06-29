@@ -61,6 +61,29 @@ namespace Api.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery] Guid? customerId, [FromQuery] string cep,
+            [FromQuery] string address, [FromQuery] string district, [FromQuery] string city, [FromQuery] string state)
+        {
+            try
+            {
+                var result = await _addressService.GetAsync(a =>
+                    (!customerId.HasValue || a.CustomerId == customerId)
+                    && (string.IsNullOrEmpty(cep) || a.Cep == cep)
+                    && (string.IsNullOrEmpty(address) || a.Address.Contains(address))
+                    && (string.IsNullOrEmpty(district) || a.Address.Contains(district))
+                    && (string.IsNullOrEmpty(city) || a.Address.Contains(city))
+                    && (string.IsNullOrEmpty(state) || a.State == state)
+                );
+
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {

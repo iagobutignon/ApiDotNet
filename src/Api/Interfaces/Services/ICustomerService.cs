@@ -10,7 +10,7 @@ namespace Api.Interfaces.Services
 {
     public interface ICustomerService
     {
-        Task<CustomerModel> InsertAsync(CustomerRequest request);
+        Task<CustomerModel> InsertAsync(CustomerInsertRequest request);
 
         Task<CustomerModel> UpdateAsync(Guid id, CustomerRequest request);
 

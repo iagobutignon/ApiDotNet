@@ -20,7 +20,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(CustomerRequest request)
+        public async Task<IActionResult> Post(CustomerInsertRequest request)
         {
             try
             {
@@ -62,11 +62,15 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] string name, [FromQuery] string cpfCnpj, [FromQuery] bool? active)
         {
             try
             {
-                var result = await _customerService.GetAsync(x => true);
+                var result = await _customerService.GetAsync(x => 
+                        (string.IsNullOrEmpty(name) || x.Name.Contains(name))
+                        && (string.IsNullOrEmpty(cpfCnpj) || x.CpfCnpj == cpfCnpj)
+                        && (!active.HasValue || x.Active == active)
+                    );
                 return Ok(result);
             }
             catch (Exception e)

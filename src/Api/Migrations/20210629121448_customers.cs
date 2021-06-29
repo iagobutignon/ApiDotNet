@@ -26,7 +26,7 @@ namespace Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Adresses",
+                name: "Addresses",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -37,24 +37,23 @@ namespace Api.Migrations
                     Complement = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     District = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    State = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CustomerEntityId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Adresses", x => x.Id);
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Adresses_Customers_CustomerEntityId",
-                        column: x => x.CustomerEntityId,
+                        name: "FK_Addresses_Customers_CustomerId",
+                        column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Adresses_CustomerEntityId",
-                table: "Adresses",
-                column: "CustomerEntityId");
+                name: "IX_Addresses_CustomerId",
+                table: "Addresses",
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "UK_CpfCnpj",
@@ -66,7 +65,7 @@ namespace Api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Adresses");
+                name: "Addresses");
 
             migrationBuilder.DropTable(
                 name: "Customers");

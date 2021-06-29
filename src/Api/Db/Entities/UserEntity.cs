@@ -8,6 +8,7 @@ namespace Api.Db.Entities
     [Index(nameof(UserName), IsUnique = true, Name = "UK_UserName")]
     public class UserEntity
     {
+        [Key]
         public Guid Id { get; set; }
         [Required]
         [Column(TypeName = "nvarchar(50)")]

@@ -37,8 +37,7 @@ namespace Api.Db.Repositories
             try
             {
                 var entity = await GetByIdAsync(id);
-                var adresses = await _apiDotNetDbContext.Adresses.ToListAsync();
-                adresses.Remove(entity);
+                _apiDotNetDbContext.Adresses.Remove(entity);
                 await _apiDotNetDbContext.SaveChangesAsync();
 
                 return true;

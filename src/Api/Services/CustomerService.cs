@@ -22,7 +22,7 @@ namespace Api.Services
             _mapper = mapper;
         }
 
-        public async Task<CustomerModel> InsertAsync(CustomerRequest request)
+        public async Task<CustomerModel> InsertAsync(CustomerInsertRequest request)
         {
             var entity = _mapper.Map<CustomerEntity>(request);
             entity = await _customerRepository.InsertAsync(entity);

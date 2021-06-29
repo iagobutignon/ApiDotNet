@@ -13,6 +13,7 @@ namespace Api.Mappings
             CreateMap<UserModel, UserEntity>();
 
             CreateMap<CustomerRequest, CustomerEntity>();
+            CreateMap<CustomerInsertRequest, CustomerEntity>();
             CreateMap<CustomerModel, CustomerEntity>();
 
             CreateMap<AddressRequest, AddressEntity>();

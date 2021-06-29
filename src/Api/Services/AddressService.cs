@@ -32,6 +32,14 @@ namespace Api.Services
         public async Task<AddressModel> UpdateAsync(Guid id, AddressRequest request)
         {
             var entity = await _addressRepository.GetByIdAsync(id);
+
+            entity.Cep = request.Cep;
+            entity.Address = request.Address;
+            entity.Number = request.Number;
+            entity.District = request.District;
+            entity.City = request.City;
+            entity.State = request.State;
+
             entity = await _addressRepository.UpdateAsync(entity);
             return _mapper.Map<AddressModel>(entity);
         }

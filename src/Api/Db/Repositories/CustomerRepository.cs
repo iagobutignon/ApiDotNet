@@ -40,6 +40,7 @@ namespace Api.Db.Repositories
                 var entity = await GetByIdAsync(id);
                 entity.Active = false;
                 await UpdateAsync(entity);
+                await _apiDotNetDbContext.SaveChangesAsync();
 
                 return true;
             }
@@ -51,12 +52,13 @@ namespace Api.Db.Repositories
 
         public async Task<IEnumerable<CustomerEntity>> GetAsync(Expression<Func<CustomerEntity, bool>> predicate)
         {
-            return await _apiDotNetDbContext.Customers.Include(nameof(CustomerEntity.Adresses)).Where(predicate).ToListAsync();
+            var customers = await _apiDotNetDbContext.Customers.Include(nameof(CustomerEntity.Addresses)).Where(predicate).ToListAsync();
+            return customers;
         }
 
         public async Task<CustomerEntity> GetByIdAsync(Guid id)
         {
-            return await _apiDotNetDbContext.Customers.Include(nameof(CustomerEntity.Adresses)).FirstOrDefaultAsync(x => x.Id == id);
+            return await _apiDotNetDbContext.Customers.Include(nameof(CustomerEntity.Addresses)).FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

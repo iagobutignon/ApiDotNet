@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Migrations
 {
     [DbContext(typeof(ApiDotNetDbContext))]
-    [Migration("20210629072815_customers")]
+    [Migration("20210629121448_customers")]
     partial class customers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,9 +42,6 @@ namespace Api.Migrations
                     b.Property<string>("Complement")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("CustomerEntityId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
@@ -62,9 +59,9 @@ namespace Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerEntityId");
+                    b.HasIndex("CustomerId");
 
-                    b.ToTable("Adresses");
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("Api.Db.Entities.CustomerEntity", b =>
@@ -138,9 +135,13 @@ namespace Api.Migrations
 
             modelBuilder.Entity("Api.Db.Entities.AddressEntity", b =>
                 {
-                    b.HasOne("Api.Db.Entities.CustomerEntity", null)
+                    b.HasOne("Api.Db.Entities.CustomerEntity", "Customer")
                         .WithMany("Adresses")
-                        .HasForeignKey("CustomerEntityId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Api.Db.Entities.CustomerEntity", b =>
