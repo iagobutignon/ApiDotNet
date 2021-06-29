@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Api.Interfaces.Services;
+using Api.Models;
 using Api.Models.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Api.Controllers
 {
@@ -20,6 +23,8 @@ namespace Api.Controllers
         }
 
         [HttpPost]
+        [SwaggerResponse(200, Type = typeof(AddressModel))]
+        [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Post(AddressRequest request)
         {
             try
@@ -34,6 +39,8 @@ namespace Api.Controllers
         }
 
         [HttpPut("{id}")]
+        [SwaggerResponse(200, Type = typeof(AddressModel))]
+        [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Put(Guid id, AddressRequest request)
         {
             try
@@ -48,6 +55,8 @@ namespace Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [SwaggerResponse(200, Type = typeof(bool))]
+        [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Delete(Guid id)
         {
             try
@@ -62,6 +71,8 @@ namespace Api.Controllers
         }
 
         [HttpGet]
+        [SwaggerResponse(200, Type = typeof(IEnumerable<AddressModel>))]
+        [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Get([FromQuery] Guid? customerId, [FromQuery] string cep,
             [FromQuery] string address, [FromQuery] string district, [FromQuery] string city, [FromQuery] string state)
         {
@@ -85,6 +96,8 @@ namespace Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [SwaggerResponse(200, Type = typeof(AddressModel))]
+        [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> GetById(Guid id)
         {
             try

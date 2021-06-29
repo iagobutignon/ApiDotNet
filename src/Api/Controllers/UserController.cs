@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Api.Interfaces.Services;
+using Api.Models;
 using Api.Models.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Api.Controllers
 {
@@ -20,6 +22,9 @@ namespace Api.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
+        [SwaggerResponse(200, Type = typeof(UserModel))]
+        [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Post(UserRequest request)
         {
             try
@@ -34,6 +39,8 @@ namespace Api.Controllers
         }
 
         [HttpPut("{id}")]
+        [SwaggerResponse(200, Type = typeof(UserModel))]
+        [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Put(Guid id, UserRequest request)
         {
             try
@@ -48,6 +55,8 @@ namespace Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [SwaggerResponse(200, Type = typeof(bool))]
+        [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> Delete(Guid id)
         {
             try
@@ -62,6 +71,8 @@ namespace Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [SwaggerResponse(200, Type = typeof(UserModel))]
+        [SwaggerResponse(400, Type = typeof(string))]
         public async Task<IActionResult> GetById(Guid id)
         {
             try
