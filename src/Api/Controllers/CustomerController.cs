@@ -10,21 +10,21 @@ namespace Api.Controllers
     [ApiController]
     [Route("[controller]")]
     [Authorize]
-    public class UserController : ControllerBase
+    public class CustomerController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly ICustomerService _customerService;
 
-        public UserController(IUserService userService)
+        public CustomerController(ICustomerService customerService)
         {
-            _userService = userService;
+            _customerService = customerService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(UserRequest request)
+        public async Task<IActionResult> Post(CustomerRequest request)
         {
             try
             {
-                var result = await _userService.InsertAsync(request);
+                var result = await _customerService.InsertAsync(request);
                 return Ok(result);
             }
             catch (Exception e)
@@ -34,11 +34,11 @@ namespace Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, UserRequest request)
+        public async Task<IActionResult> Put(Guid id, CustomerRequest request)
         {
             try
             {
-                var result = await _userService.UpdateAsync(id, request);
+                var result = await _customerService.UpdateAsync(id, request);
                 return Ok(result);
             }
             catch (Exception e)
@@ -52,7 +52,7 @@ namespace Api.Controllers
         {
             try
             {
-                var result = await _userService.DeleteAsync(id);
+                var result = await _customerService.DeleteAsync(id);
                 return Ok(result);
             }
             catch (Exception e)
@@ -66,7 +66,7 @@ namespace Api.Controllers
         {
             try
             {
-                var result = await _userService.GetByIdAsync(id);
+                var result = await _customerService.GetByIdAsync(id);
                 return Ok(result);
             }
             catch (Exception e)

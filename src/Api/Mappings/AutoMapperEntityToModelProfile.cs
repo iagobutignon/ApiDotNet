@@ -9,6 +9,7 @@ namespace Api.Mappings
         public AutoMapperEntityToModelProfile()
         {
             CreateMap<UserEntity, UserModel>();
+            CreateMap<CustomerEntity, CustomerModel>();
         }
     }
 }

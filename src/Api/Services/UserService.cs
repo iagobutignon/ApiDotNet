@@ -71,8 +71,9 @@ namespace Api.Services
 
         public async Task<UserModel> PasswordSignInAsync(string userName, string password)
         {
+            password = EncriptaSenha(password);
             var users = await _userRepository.GetAsync(x =>
-                x.Active && x.UserName == userName && x.Password == EncriptaSenha(password));
+                x.Active && x.UserName == userName && x.Password == password);
 
             return _mapper.Map<UserModel>(users.FirstOrDefault());
         }

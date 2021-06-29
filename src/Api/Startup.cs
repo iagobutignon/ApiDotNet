@@ -39,12 +39,14 @@ namespace Api
             #region Repositories
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             #endregion
 
             #region Services
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICustomerService, CustomerService>();
 
             #endregion
 

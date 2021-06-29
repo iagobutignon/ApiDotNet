@@ -9,5 +9,6 @@ namespace Api.Db
             : base(configuration) {}
 
         public virtual DbSet<UserEntity> Users { get; set; }
+        public virtual DbSet<CustomerEntity> Customers { get; set; }
     }
 }

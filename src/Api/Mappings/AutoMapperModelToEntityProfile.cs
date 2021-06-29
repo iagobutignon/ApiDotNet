@@ -11,6 +11,8 @@ namespace Api.Mappings
         {
             CreateMap<UserRequest, UserEntity>();
             CreateMap<UserModel, UserEntity>();
+            CreateMap<CustomerRequest, CustomerEntity>();
+            CreateMap<CustomerModel, CustomerEntity>();
         }
     }
 }
