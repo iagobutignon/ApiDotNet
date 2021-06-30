@@ -17,6 +17,7 @@ namespace Api.Mappings
             CreateMap<CustomerModel, CustomerEntity>();
 
             CreateMap<AddressRequest, AddressEntity>();
+            CreateMap<AddressInsertRequest, AddressEntity>();
             CreateMap<AddressModel, AddressEntity>();
         }
     }

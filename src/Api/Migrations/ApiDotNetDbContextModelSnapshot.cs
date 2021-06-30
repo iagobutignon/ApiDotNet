@@ -134,7 +134,7 @@ namespace Api.Migrations
             modelBuilder.Entity("Api.Db.Entities.AddressEntity", b =>
                 {
                     b.HasOne("Api.Db.Entities.CustomerEntity", "Customer")
-                        .WithMany("Adresses")
+                        .WithMany("Addresses")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -144,7 +144,7 @@ namespace Api.Migrations
 
             modelBuilder.Entity("Api.Db.Entities.CustomerEntity", b =>
                 {
-                    b.Navigation("Adresses");
+                    b.Navigation("Addresses");
                 });
 #pragma warning restore 612, 618
         }

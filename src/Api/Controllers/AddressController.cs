@@ -25,7 +25,7 @@ namespace Api.Controllers
         [HttpPost]
         [SwaggerResponse(200, Type = typeof(AddressModel))]
         [SwaggerResponse(400, Type = typeof(string))]
-        public async Task<IActionResult> Post(AddressRequest request)
+        public async Task<IActionResult> Post(AddressInsertRequest request)
         {
             try
             {

@@ -32,6 +32,10 @@ namespace Api.Services
         public async Task<CustomerModel> UpdateAsync(Guid id, CustomerRequest request)
         {
             var entity = await _customerRepository.GetByIdAsync(id);
+            entity.Name = request.Name;
+            entity.CpfCnpj = request.CpfCnpj;
+            entity.Type = request.Type;
+            entity.BirthDate = request.BirthDate;
             entity = await _customerRepository.UpdateAsync(entity);
             return _mapper.Map<CustomerModel>(entity);
         }

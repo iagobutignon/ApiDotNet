@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Migrations
 {
     [DbContext(typeof(ApiDotNetDbContext))]
-    [Migration("20210629121448_customers")]
+    [Migration("20210630124459_customers")]
     partial class customers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -136,7 +136,7 @@ namespace Api.Migrations
             modelBuilder.Entity("Api.Db.Entities.AddressEntity", b =>
                 {
                     b.HasOne("Api.Db.Entities.CustomerEntity", "Customer")
-                        .WithMany("Adresses")
+                        .WithMany("Addresses")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -146,7 +146,7 @@ namespace Api.Migrations
 
             modelBuilder.Entity("Api.Db.Entities.CustomerEntity", b =>
                 {
-                    b.Navigation("Adresses");
+                    b.Navigation("Addresses");
                 });
 #pragma warning restore 612, 618
         }
